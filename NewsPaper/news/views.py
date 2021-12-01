@@ -10,6 +10,9 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = 'protected_index.html'
+
 class PostListNews(ListView):
     model = Post
     template_name = 'news.html' 
