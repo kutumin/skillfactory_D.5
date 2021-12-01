@@ -5,6 +5,10 @@ from django.views import View
 from django.shortcuts import render
 from .filters import PostFilter
 from .forms import PostForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 
 class PostListNews(ListView):
     model = Post
@@ -24,7 +28,7 @@ class PostDetailEdit(DetailView):
     context_object_name = 'news'
     queryset = Post.objects.filter(post_type='news')
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin,UpdateView):
     template_name = 'add_news.html'
     form_class = PostForm
 
@@ -33,7 +37,7 @@ class ProductUpdateView(UpdateView):
         return Post.objects.get(pk=id)
  
  
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin,DeleteView):
     template_name = 'delete_news.html'
     queryset = Post.objects.all()
     context_object_name = 'news'
@@ -64,7 +68,7 @@ class PostSearch(ListView):
 
 class PostAdd(ListView):
     model = Post
-    template_name = 'add_news.html' 
+    template_name = 'add_news.html'
     context_object_name = 'news'
     paginate_by = 1
     form_class = PostForm

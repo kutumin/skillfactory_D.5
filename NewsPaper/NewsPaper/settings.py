@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-)uumc4w-w-!ox$+m6sgz4sp9nakv%i!i3$1gvuk_yru%3d4h0p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -130,6 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = 'login/'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
