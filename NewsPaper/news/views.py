@@ -9,6 +9,21 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+from django.template import RequestContext
+from django.contrib.auth.models import User
+from django.views.generic.edit import CreateView
+from .models import BaseRegisterForm
+
+class BaseRegisterView(CreateView):
+    model = User
+    form_class = BaseRegisterForm
+    success_url = '/'
+
+def handler404(request, *args, **argv):
+    response = render('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
 
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'protected_index.html'

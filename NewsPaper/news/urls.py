@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import PostDetail, PostSearch, PostListNews, PostAdd, ProductUpdateView,PostDeleteView, IndexView
+from .views import PostDetail, PostSearch, PostListNews, PostAdd, ProductUpdateView,PostDeleteView, IndexView, BaseRegisterView
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -12,4 +12,6 @@ urlpatterns = [
     path('<int:pk>/delete', PostDeleteView.as_view(), name='post_delete'),
     path('login/', LoginView.as_view(template_name = 'login.html'),name='login'),
     path('protected_index/logout/', LogoutView.as_view(template_name = 'logout.html'),name='logout'),
+    path('accounts/', include('allauth.urls')),
+    path('signup/', BaseRegisterView.as_view(template_name = 'signup.html'), name='signup'),
 ]
