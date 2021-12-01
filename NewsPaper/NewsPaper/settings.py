@@ -131,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = 'login/'
+LOGIN_URL = 'news/login/'
 LOGIN_REDIRECT_URL = '/'
 
 TEMPLATE_DIRS = (
