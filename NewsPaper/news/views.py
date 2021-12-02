@@ -32,7 +32,7 @@ class PostListNews(ListView):
     model = Post
     template_name = 'news.html' 
     context_object_name = 'news'
-    queryset = Post.objects.filter(post_type='PO')
+    queryset = Post.objects.filter(post_type='NW')
     ordering = ['id']
     paginate_by = 1
     

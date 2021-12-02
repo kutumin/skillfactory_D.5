@@ -17,12 +17,10 @@
     </form>
 
     <br>{% for i in filter.qs%}
-        {{ i.article_text|Censor}}
-        {{ i.author}}
-        {{ i.post_date_created}}
-        {{ i.id}}
+        ID: {{ i.id}}
+        Text: {{ i.article_text|Censor}}
+        Data: {{ i.post_date_created}}
     {% endfor %}
-
     <br>
     <br>
     {% if is_paginated %}
@@ -52,10 +50,4 @@
 
 <br>
 <br>
-
-<form method="POST">
-    {% csrf_token %} 
-    {{ form }}
-    <input type="submit" value="Добавить пост">
-</form>
 {% endblock content %}  
