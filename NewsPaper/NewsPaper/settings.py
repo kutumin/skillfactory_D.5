@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+
 import os
-from allauth.account.forms import SignupForm
 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
@@ -29,7 +29,8 @@ STATICFILES_DIRS = [
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-)uumc4w-w-!ox$+m6sgz4sp9nakv%i!i3$1gvuk_yru%3d4h0p'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WA
+# RNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
@@ -161,4 +162,4 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-
+ACCOUNT_FORMS = {'signup': 'news.models.BaseRegisterForm'}

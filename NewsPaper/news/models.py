@@ -22,7 +22,7 @@ class BaseRegisterForm(UserCreationForm):
                   "password2", )
                   
     def save(self, request):
-        user = super(UserCreationForm, self).save(request)
+        user = super(BaseRegisterForm, self).save(request)
         basic_group = Group.objects.get(name='common')
         basic_group.user_set.add(user)
         return user
