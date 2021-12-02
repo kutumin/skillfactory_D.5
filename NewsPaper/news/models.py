@@ -27,6 +27,9 @@ class Author(models.Model):
     user = models.OneToOneField(User,on_delete = models.CASCADE)
     raiting = models.IntegerField(default = 1)
 
+    def __str__(self):
+        return f'{self.user}'
+
     def update_raiting(self):
         post_raiting = self.post_set.all().aggregate(sumraiting = Sum('post_raiting'))
         authors_post_raiting = 0
@@ -47,9 +50,11 @@ class Author(models.Model):
             
         self.raiting = 3 * authors_post_raiting + authors_post_comment_raiting + authors_comment_raiting
         self.save()
-
+    
 class Category(models.Model):
-	category_name = models.CharField(max_length = 255, unique = True)	
+    category_name = models.CharField(max_length = 255, unique = True)	
+    def __str__(self):
+        return f'{self.category_name}'
 
 class Post(models.Model):
     post = 'PO'
@@ -77,12 +82,12 @@ class Post(models.Model):
     def preview(self):
         review = self.article_text[:124]+'...'
         return review
-    
-    def __str__(self):
-        return f'{self.name} {self.quantity}'
  
-    def get_absolute_url(self): # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
+    def get_absolute_url(self): 
         return f'/news/{self.id}' 
+
+    def __str__(self):
+        return f'{self.article_text}'
 
 class PostCategory(models.Model):
 	post = models.ForeignKey(Post, on_delete = models.CASCADE)

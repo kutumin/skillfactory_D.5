@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
-from .models import Post, PostCategory
+from .models import Category, Post, PostCategory
 from django.core.paginator import Paginator
 from django.views import View 
 from django.shortcuts import render
@@ -32,7 +32,8 @@ class PostListNews(ListView):
     model = Post
     template_name = 'news.html' 
     context_object_name = 'news'
-    queryset = Post.objects.filter(post_type='news')
+    queryset = Post.objects.filter(post_type='PO')
+    ordering = ['id']
     paginate_by = 1
     
 class PostDetail(DetailView):
