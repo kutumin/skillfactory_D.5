@@ -18,7 +18,7 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static"
+    BASE_DIR / "static/"
 ]
 
 # Quick-start development settings - unsuitable for production
