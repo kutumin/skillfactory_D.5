@@ -13,6 +13,19 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
 from .models import BaseRegisterForm
+from django.shortcuts import redirect
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+@login_required
+def upgrade_me(request):
+    user = request.user
+    premium_group = Group.objects.get(name='authors')
+    if not request.user.groups.filter(name='authors').exists():
+        premium_group.user_set.add(user)
+    return redirect('/news/')
+
 
 class BaseRegisterView(CreateView):
     model = User
@@ -27,6 +40,11 @@ def handler404(request, *args, **argv):
 
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'protected_index.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_auhtor'] = not self.request.user.groups.filter(name = 'authors').exists()
+        return context
 
 class PostListNews(ListView):
     model = Post
@@ -47,7 +65,8 @@ class PostDetailEdit(DetailView):
     context_object_name = 'news'
     queryset = Post.objects.filter(post_type='news')
 
-class ProductUpdateView(LoginRequiredMixin,UpdateView):
+class ProductUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.add_post',)
     template_name = 'add_news.html'
     form_class = PostForm
 
@@ -85,7 +104,8 @@ class PostSearch(ListView):
  
         return super().get(request, *args, **kwargs)
 
-class PostAdd(ListView):
+class PostAdd(PermissionRequiredMixin, ListView):
+    permission_required = ('news.add_post', )
     model = Post
     template_name = 'add_news.html'
     context_object_name = 'news'
